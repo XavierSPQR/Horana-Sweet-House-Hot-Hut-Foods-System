@@ -113,7 +113,7 @@ public class loginform extends javax.swing.JFrame {
         });
 
         butlogin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        butlogin.setText("Login");
+        butlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/photos/but6.png"))); // NOI18N
         butlogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 butloginMouseClicked(evt);
@@ -192,7 +192,7 @@ public class loginform extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butlogin)
                     .addComponent(butcancel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(lblsystemname)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblcreateby)

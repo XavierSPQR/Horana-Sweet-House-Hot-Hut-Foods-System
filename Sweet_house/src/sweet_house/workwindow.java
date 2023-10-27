@@ -214,6 +214,7 @@ public class workwindow extends javax.swing.JFrame {
             }
         });
 
+        butsearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/photos/icons8_search_25px.png"))); // NOI18N
         butsearch.setText("Search");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -250,6 +251,7 @@ public class workwindow extends javax.swing.JFrame {
 
         txtremarks.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
+        butcheckout.setBackground(new java.awt.Color(51, 255, 51));
         butcheckout.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
         butcheckout.setText("Check Out");
         butcheckout.addMouseListener(new java.awt.event.MouseAdapter() {
