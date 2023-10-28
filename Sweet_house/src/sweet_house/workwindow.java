@@ -86,7 +86,60 @@ public class workwindow extends javax.swing.JFrame {
     }
     
     
+    /* ---------------------------------------------------------------------------------------------------------*/
     
+    
+    public void tablerowclear()
+    {
+         DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+        //Delete Selected Row
+        
+    try
+    {
+             tblModel.setValueAt(" ", jTable1.getSelectedRow(),0);
+             tblModel.setValueAt(" ", jTable1.getSelectedRow(),1);
+             tblModel.setValueAt(" ", jTable1.getSelectedRow(),2);
+             tblModel.setValueAt(" ", jTable1.getSelectedRow(),3);
+             tblModel.setValueAt(" ", jTable1.getSelectedRow(),4);
+             tblModel.setValueAt(" ", jTable1.getSelectedRow(),5);
+        
+        
+                    
+            if (jTable1.getSelectedRowCount()==1)
+            {
+                //if singal row is selected than delete
+                tblModel.removeRow(jTable1.getSelectedRow());
+                
+                
+                String currentfoodcode = txtfcode.getText();
+                st=conn.createStatement();
+                String qry = "DELETE FROM sales_products WHERE foodcode='"+currentfoodcode+"'";
+                st.executeUpdate(qry);
+                
+                
+            }
+            else
+            {
+                if(jTable1.getRowCount()==0) 
+                {
+                    // if table is empty (no data) than display message
+                    JOptionPane.showMessageDialog(this,"Table is Empty");
+                }
+                else
+                {
+                    //if table is not empty but row is not selected or mmultiple row are selected.
+                    JOptionPane.showMessageDialog(this,"Please selecte singal row for delete");
+                }
+             }
+    }
+    catch(Exception e)
+                {
+                     JOptionPane.showMessageDialog(null,e);
+                }
+        
+    
+    }
+    /* -----------------------------------------------------------------------------------------------------------------------------------*/ 
     
     
     
@@ -95,12 +148,16 @@ public class workwindow extends javax.swing.JFrame {
         try
         {
             
+            String invono = lbldisplayinovno.getText();
+            
+            int Currentinvono = Integer.parseInt(invono);
             
             st=conn.createStatement();
             
-            String qry = "SELECT * FROM sales_products";
+            String qry = "SELECT * FROM sales_products WHERE invoiceno='"+Currentinvono+"'";
             
             rs = st.executeQuery(qry);
+           
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
            
            // JOptionPane.showMessageDialog(null,"Successfull");
@@ -110,6 +167,28 @@ public class workwindow extends javax.swing.JFrame {
                      JOptionPane.showMessageDialog(null,e);
                 }
     }
+    
+    /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+    public void caltabletotalprice()
+    {
+        DefaultTableModel df = (DefaultTableModel)jTable1.getModel();
+        
+        int numofrow = jTable1.getRowCount();
+        
+        double rowtotalprice = 0.00;
+        
+        for (int i=0; i<numofrow; i++)
+        {
+            double value = Double.valueOf(jTable1.getValueAt(i, 8).toString());
+            rowtotalprice = rowtotalprice+value;
+           
+            txttotalp.setText(Double.toString(rowtotalprice));
+            
+        }
+        
+    }
+    /*-------------------------------------------------------------------------------------------------------------------------------------------*/
+    
     
     
     /**
@@ -265,6 +344,7 @@ public class workwindow extends javax.swing.JFrame {
             }
         });
 
+        butadd.setBackground(new java.awt.Color(51, 153, 255));
         butadd.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         butadd.setText("ADD");
         butadd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -278,6 +358,7 @@ public class workwindow extends javax.swing.JFrame {
             }
         });
 
+        butclear.setBackground(new java.awt.Color(0, 255, 255));
         butclear.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         butclear.setText("Clear");
         butclear.addActionListener(new java.awt.event.ActionListener() {
@@ -626,8 +707,8 @@ public class workwindow extends javax.swing.JFrame {
                     
                     String qry = "INSERT INTO sales_products (invoiceno,foodcode,foodname,foodprice,qty,dis, totalprice) VALUES ('"+invoiceno+"','"+fcode+"','"+fname+"','"+fprice+"','"+quantity+"','"+discount+"','"+totalp+"')";
                     
-                   st.executeUpdate(qry);
-                   
+                    st.executeUpdate(qry);
+                  
                    JOptionPane.showMessageDialog(null,"Insertion is Successful!!...");
                 }
                 catch(Exception e)
@@ -637,7 +718,9 @@ public class workwindow extends javax.swing.JFrame {
     
     
                  clear(); 
+                 caltabletotalprice();
                  showfoodlist();  
+                 
     }//GEN-LAST:event_butaddMouseClicked
 
     private void butclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butclearActionPerformed
@@ -812,6 +895,8 @@ public class workwindow extends javax.swing.JFrame {
         txtquantity.setText(qty);
         txtdisc.setText(dis);
         txttprice.setText(tprice);
+        
+        tablerowclear();
         
     }//GEN-LAST:event_jTable1MouseClicked
 
