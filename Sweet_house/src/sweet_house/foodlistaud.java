@@ -271,7 +271,7 @@ public class foodlistaud extends javax.swing.JFrame {
                             .addComponent(butadd)
                             .addComponent(butclear, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(59, 59, 59)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
